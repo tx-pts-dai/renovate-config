@@ -9,3 +9,4 @@ repos:
     rev: 37.377.8
     hooks:
       - id: renovate-config-validator
+        files: "^.+\.json$"

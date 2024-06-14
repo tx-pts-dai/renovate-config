@@ -3,7 +3,9 @@
   "extends": [
     "config:recommended",
     ":dependencyDashboard",
-    "github>tx-pts-dai/renovate-config:automerge-github-actions"
+    "github>tx-pts-dai/renovate-config:automerge-github-actions",
+    "github>tx-pts-dai/renovate-config:group-github-actions-minor-patch",
+    "github>tx-pts-dai/renovate-config:group-terraform-minor-patch"
   ],
   "branchPrefix": "renovate_",
   "timezone": "Europe/Zurich",
