@@ -7,13 +7,13 @@
     "github>tx-pts-dai/renovate-config:group-github-actions-minor-patch",
     "github>tx-pts-dai/renovate-config:group-terraform-minor-patch"
   ],
-  "branchPrefix": "renovate_",
+  "branchPrefix": "renovate/",
   "timezone": "Europe/Zurich",
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
   "commitBodyTable": true,
   "rebaseWhen": "conflicted",
-  "platformCommit": true,
+  "platformCommit": "enabled",
   "reviewersFromCodeOwners": true,
   "prCreation": "immediate",
   "enabledManagers": ["dockerfile", "terraform", "github-actions", "circleci"]
