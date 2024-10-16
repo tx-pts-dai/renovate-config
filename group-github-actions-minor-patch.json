@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
       "groupName": "github-actions minor / patch updates",
       "groupSlug": "github-actions-all-minor-patch"
     }
