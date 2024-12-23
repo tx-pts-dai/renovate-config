@@ -1,0 +1,28 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  customManagers: [
+    {
+      customType: "regex",
+      description: "Github Workflow repository migration to DND-IT organisation",
+      fileMatch: [
+        "^.github/workflows/.*\\.(yaml|yml)$"
+      ],
+      matchStrings: [
+        'uses:\\s+(?<depName>tx-pts-dai)[a-zA-Z0-9-_]+)@(?<depVersion>[^\\s\"]+)'
+      ],
+      depNameTemplate: "DND-IT",
+      autoReplaceStringTemplate: "uses: {{{depName}}}@{{{depVersion}}}",
+      datasourceTemplate: "github-actions"
+    }
+  ],
+  packageRules: [
+    {
+      matchManagers: [
+        "custom.regex"
+      ],
+      groupName: "Github Workflow Migration",
+      groupSlug: "github-workflow-migration",
+      autoMerge: true
+    }
+  ]
+}
