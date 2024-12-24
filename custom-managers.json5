@@ -8,6 +8,10 @@
         '\\.tf$',
       ],
       matchStrings: [
+        // This regex will match the following:
+        // chart = "depName"
+        // chart_version = "currentValue"
+        // repository = "registryUrl"
         'chart\\s*=\\s*"(?<depName>[^"\\s]+)"\\s*chart_version\\s*=\\s*"(?<currentValue>[^"\\s]+)"\\s*repository\\s*=\\s*"(?<registryUrl>[^"\\s]+)"',
       ],
       datasourceTemplate: 'helm',
@@ -15,9 +19,8 @@
   ],
   packageRules: [
     {
-      matchManagers: [
-        'custom.regex',
-      ],
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['helm'],
       groupName: 'Terraform helm packages',
       groupSlug: 'terraform-helm',
     },
