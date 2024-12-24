@@ -3,7 +3,7 @@
   customManagers: [
     {
       customType: 'regex',
-      description: 'Helm chart version when used with Terraform Helm module',
+      description: 'Custom Helm chart version manager when used with Terraform Helm module. Caveat, this will only work when chart, chart_version and repository are all defined in the same order.',
       fileMatch: [
         '\\.tf$',
       ],
@@ -22,4 +22,5 @@
       groupSlug: 'terraform-helm',
     },
   ],
+  enabledManagers: ['custom.regex'],
 }

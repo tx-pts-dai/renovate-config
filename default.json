@@ -17,5 +17,5 @@
   "platformCommit": "enabled",
   "reviewersFromCodeOwners": true,
   "prCreation": "immediate",
-  "enabledManagers": ["dockerfile", "terraform", "github-actions", "circleci"]
+  "enabledManagers": ["dockerfile", "terraform", "github-actions", "circleci", "custom.regex"]
 }

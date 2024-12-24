@@ -7,5 +7,7 @@
       "groupName": "github-actions minor / patch updates",
       "groupSlug": "github-actions-all-minor-patch"
     }
-  ]
+  ],
+  "enabledManagers": ["github-actions"]
+
 }
