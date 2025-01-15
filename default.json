@@ -17,5 +17,13 @@
   "platformCommit": "enabled",
   "reviewersFromCodeOwners": true,
   "prCreation": "immediate",
-  "enabledManagers": ["dockerfile", "terraform", "github-actions", "circleci", "custom.regex"]
+  "enabledManagers": [
+    "dockerfile",
+    "terraform",
+    "github-actions",
+    "custom.regex",
+    "pre-commit",
+    "helm-values",
+    "pip-requirements"
+  ]
 }
