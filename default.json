@@ -6,6 +6,7 @@
     ":enablePreCommit",
     "github>tx-pts-dai/renovate-config:group-github-actions-minor-patch",
     "github>tx-pts-dai/renovate-config:group-terraform-minor-patch",
+    "github>tx-pts-dai/renovate-config:group-pre-commit-minor-patch",
     "github>tx-pts-dai/renovate-config:custom-managers.json5"
   ],
   "branchPrefix": "renovate/",
