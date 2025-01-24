@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchManagers": ["pre-commit"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
+      "groupName": "pre-commit minor / patch updates",
+      "groupSlug": "pre-commit-all-minor-patch"
+    }
+  ],
+  "enabledManagers": ["pre-commit"]
+}

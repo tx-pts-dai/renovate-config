@@ -3,11 +3,15 @@
   customManagers: [
     {
       customType: 'regex',
-      description: 'Helm chart version when used with Terraform Helm module',
+      description: 'Custom Helm chart version manager when used with Terraform Helm module. Caveat, this will only work when chart, chart_version and repository are all defined in the same order.',
       fileMatch: [
         '\\.tf$',
       ],
       matchStrings: [
+        // This regex will match the following:
+        // chart = "depName"
+        // chart_version = "currentValue"
+        // repository = "registryUrl"
         'chart\\s*=\\s*"(?<depName>[^"\\s]+)"\\s*chart_version\\s*=\\s*"(?<currentValue>[^"\\s]+)"\\s*repository\\s*=\\s*"(?<registryUrl>[^"\\s]+)"',
       ],
       datasourceTemplate: 'helm',
@@ -15,11 +19,11 @@
   ],
   packageRules: [
     {
-      matchManagers: [
-        'custom.regex',
-      ],
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['helm'],
       groupName: 'Terraform helm packages',
       groupSlug: 'terraform-helm',
     },
   ],
+  enabledManagers: ['custom.regex'],
 }

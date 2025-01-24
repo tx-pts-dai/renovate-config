@@ -6,7 +6,8 @@
     ":enablePreCommit",
     "github>tx-pts-dai/renovate-config:group-github-actions-minor-patch",
     "github>tx-pts-dai/renovate-config:group-terraform-minor-patch",
-    "github>tx-pts-dai/renovate-config:custom-managers"
+    "github>tx-pts-dai/renovate-config:group-pre-commit-minor-patch",
+    "github>tx-pts-dai/renovate-config:custom-managers.json5"
   ],
   "branchPrefix": "renovate/",
   "timezone": "Europe/Zurich",
@@ -17,5 +18,13 @@
   "platformCommit": "enabled",
   "reviewersFromCodeOwners": true,
   "prCreation": "immediate",
-  "enabledManagers": ["dockerfile", "terraform", "github-actions", "circleci"]
+  "enabledManagers": [
+    "dockerfile",
+    "terraform",
+    "github-actions",
+    "custom.regex",
+    "pre-commit",
+    "helm-values",
+    "pip-requirements"
+  ]
 }
