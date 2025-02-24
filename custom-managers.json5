@@ -21,7 +21,7 @@
       description: 'Process environment variables that contain package versions',
       fileMatch: ['^.github/workflows/.*\\.ya?ml$'],
       matchStrings: [
-        '[A-Z_]+_VERSION: (?<currentValue>.*) # (?<datasource>.*?)/(?<depName>.*?)\\s'
+        '[A-Z_]+_VERSION:\\s(?<currentValue>.*)\\s#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
       ]
     },
     {
