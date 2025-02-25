@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Replace `tx-pts-dai` with `DND-IT` in GitHub Actions.",
+      "matchDatasources": ["github-tags"],
+      "matchPackageNames": ["tx-pts-dai/github-workflows"],
+      "replacementName": "DND-IT/github-workflows",
+      "groupName": "Github Workflow Migration",
+      "groupSlug": "github-workflow-migration"
+    }
+  ]
+}
