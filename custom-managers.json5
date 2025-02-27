@@ -29,7 +29,9 @@
       description: 'Custom Terraform module version manager for KAAS to support meta tags',
       fileMatch: ['\\.tf$'],
       matchStrings: [
-        'source\\s*=\\s*"tx-pts-dai/kubernetes-platform/aws"\\s*\\n\\s*version\\s*=\\s*"(?<currentValue>.*?)".*'
+        'source\\s*=\\s*"tx-pts-dai/kubernetes-platform/aws"\\s*\\n\\s*version\\s*=\\s*"(?<currentValue>.*?)".*',
+        'datadog_agent_version_fargate\\s*=\\s*\"(?<currentValue>.*?)\"',
+        'datadog\\s*=\\s*{\\s*operator_chart_version\\s*=\\s*\"(?<currentValue>.*?)\"'
       ],
       depNameTemplate: 'tx-pts-dai/terraform-aws-kubernetes-platform',
       datasourceTemplate: 'github-releases',
