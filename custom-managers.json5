@@ -32,7 +32,7 @@
         '\\.tfvars$'
       ],
       matchStrings: [
-        '^\\s*.*=\\s"(?<currentValue>.*)"\\s#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
+        '^\\s.*=\\s"(?<currentValue>.*)".*#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
       ]
     },
     {
