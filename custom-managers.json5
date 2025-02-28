@@ -29,9 +29,10 @@
       description: 'Process arbitrary versions in Terraform files with comments: `# github-release/org/repo`',
       fileMatch: [
         '\\.tf$',
+        '\\.tfvars$,
       ],
       matchStrings: [
-        '^\\s*.*=\\s(?<currentValue>.*)\\s#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
+        '^\\s*.*=\\s"(?<currentValue>.*)"\\s#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
       ]
     },
     {
