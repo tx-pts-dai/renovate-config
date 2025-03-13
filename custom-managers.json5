@@ -59,6 +59,7 @@
       matchPackageNames: ['tx-pts-dai/terraform-aws-kubernetes-platform'],
       groupName: 'Terraform Module KAAS',
       groupSlug: 'terraform-module-kaas',
+      separateMultipleMajor: true,
     },
   ],
   enabledManagers: ['custom.regex'],
