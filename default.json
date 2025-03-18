@@ -27,5 +27,8 @@
     "pre-commit",
     "helm-values",
     "pip-requirements"
-  ]
+  ],
+  "git-submodules": {
+    "enabled": true
+  }
 }
