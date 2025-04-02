@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "matchPackageNames": [
-        "tx-pts-dai/terraform-aws-kubernetes-platform"
+        "tx-pts-dai/kubernetes-platform/aws"
       ],
       "matchManagers": [
         "terraform"
@@ -17,7 +17,7 @@
     },
     {
       "matchPackageNames": [
-        "tx-pts-dai/terraform-aws-kubernetes-platform"
+        "tx-pts-dai/kubernetes-platform/aws"
       ],
       "matchManagers": [
         "terraform"
