@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "tx-pts-dai/terraform-aws-kubernetes-platform"
+      ],
+      "matchManagers": [
+        "terraform"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "kaas minor / patch updates",
+      "groupSlug": "kaas-all-minor-patch"
+    },
+    {
+      "matchPackageNames": [
+        "tx-pts-dai/terraform-aws-kubernetes-platform"
+      ],
+      "matchManagers": [
+        "terraform"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "kaas major updates",
+      "groupSlug": "kaas-major",
+      "separateMultipleMajor": true
+    }
+  ],
+  "enabledManagers": [
+    "terraform"
+  ]
+}
