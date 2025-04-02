@@ -7,13 +7,16 @@
     "github>tx-pts-dai/renovate-config:group-github-actions-minor-patch",
     "github>tx-pts-dai/renovate-config:group-terraform-minor-patch",
     "github>tx-pts-dai/renovate-config:group-pre-commit-minor-patch",
+    "github>tx-pts-dai/renovate-config:group-kaas",
     "github>tx-pts-dai/renovate-config:custom-managers.json5",
     "github>tx-pts-dai/renovate-config:actions-org-migration.json"
   ],
   "branchPrefix": "renovate/",
   "timezone": "Europe/Zurich",
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ],
   "commitBodyTable": true,
   "rebaseWhen": "conflicted",
   "platformCommit": "enabled",
