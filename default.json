@@ -9,7 +9,8 @@
     "github>tx-pts-dai/renovate-config:group-pre-commit-minor-patch",
     "github>tx-pts-dai/renovate-config:group-kaas",
     "github>tx-pts-dai/renovate-config:custom-managers.json5",
-    "github>tx-pts-dai/renovate-config:actions-org-migration.json"
+    "github>tx-pts-dai/renovate-config:actions-org-migration.json",
+    "github>tx-pts-dai/renovate-config:manager-precommit.json"
   ],
   "branchPrefix": "renovate/",
   "timezone": "Europe/Zurich",
@@ -27,7 +28,6 @@
     "terraform",
     "github-actions",
     "custom.regex",
-    "pre-commit",
     "helm-values",
     "pip-requirements"
   ]
