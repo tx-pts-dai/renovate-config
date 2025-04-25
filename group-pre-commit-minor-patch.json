@@ -3,17 +3,19 @@
   "packageRules": [
     {
       "matchManagers": [
-        "terraform"
+        "pre-commit"
       ],
       "matchUpdateTypes": [
         "minor",
-        "patch"
+        "patch",
+        "digest",
+        "pinDigest"
       ],
-      "groupName": "terraform minor / patch updates",
-      "groupSlug": "terraform-all-minor-patch"
+      "groupName": "pre-commit minor / patch updates",
+      "groupSlug": "pre-commit-all-minor-patch"
     }
   ],
   "enabledManagers": [
-    "terraform"
+    "pre-commit"
   ]
 }

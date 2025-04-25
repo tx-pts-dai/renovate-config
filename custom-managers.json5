@@ -16,6 +16,25 @@
       ],
       datasourceTemplate: 'helm',
     },
+    {
+      customType: 'regex',
+      description: 'Process environment variables that contain package versions',
+      fileMatch: ['^.github/workflows/.*\\.ya?ml$'],
+      matchStrings: [
+        '^[A-Z_]+_VERSION:\\s(?<currentValue>.*)\\s#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
+      ]
+    },
+    {
+      customType: 'regex',
+      description: 'Process arbitrary versions in Terraform files with comments: `# github-release/org/repo`',
+      fileMatch: [
+        '\\.tf$',
+        '\\.tfvars$'
+      ],
+      matchStrings: [
+        '^\\s.*=\\s"(?<currentValue>.*)".*#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
+      ]
+    }
   ],
   packageRules: [
     {
@@ -23,7 +42,7 @@
       matchDatasources: ['helm'],
       groupName: 'Terraform helm packages',
       groupSlug: 'terraform-helm',
-    },
+    }
   ],
   enabledManagers: ['custom.regex'],
 }

@@ -3,17 +3,19 @@
   "packageRules": [
     {
       "matchManagers": [
-        "terraform"
+        "pre-commit"
+      ],
+      "matchPackageNames": [
+        "renovatebot/pre-commit-hooks"
       ],
       "matchUpdateTypes": [
         "minor",
         "patch"
       ],
-      "groupName": "terraform minor / patch updates",
-      "groupSlug": "terraform-all-minor-patch"
+      "enabled": false
     }
   ],
   "enabledManagers": [
-    "terraform"
+    "pre-commit"
   ]
 }
