@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "matchPackageNames": [
+        "renovatebot/pre-commit-hooks"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "enabled": false
+    }
+  ],
+  "enabledManagers": [
+    "pre-commit"
+  ]
+}
