@@ -26,13 +26,13 @@
     },
     {
       customType: 'regex',
-      description: 'Process arbitrary versions in Terraform files with comments: `# github-release/org/repo`',
+      description: 'Update `"<version>"` and `<version>` variables in terraform files with comments: e.g. `default = "2.9.2" # renovate: datasource=helm depName=datadog-operator registryUrl=https://helm.datadoghq.com`',
       fileMatch: [
         '\\.tf$',
         '\\.tfvars$'
       ],
       matchStrings: [
-        '^\\s.*=\\s"(?<currentValue>.*)".*#\\s(?<datasource>.*?)/(?<depName>.*?)\\s'
+        '(?:"(?<currentValue>[^"]+)"|(?<currentValue>[^\\s#]+))\\s*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?'
       ]
     }
   ],
