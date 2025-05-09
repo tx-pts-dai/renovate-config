@@ -29,6 +29,8 @@
     "github-actions",
     "custom.regex",
     "helm-values",
-    "pip-requirements"
+    "helmv3",
+    "pip-requirements",
+    "kustomize"
   ]
 }
