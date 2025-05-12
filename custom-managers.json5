@@ -32,7 +32,7 @@
         '\\.tfvars$'
       ],
       matchStrings: [
-        '(?:"(?<currentValue>[^"]+)"|(?<currentValue>[^\\s#]+))\\s*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?'
+        '"(?<currentValue>[^"]+)"\\s*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?'
       ]
     }
   ],
