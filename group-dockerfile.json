@@ -4,7 +4,7 @@
         {
             "description": "Exclude npm from Disco repositories",
             "matchManagers": [
-                "npm"
+                "dockerfile"
             ],
             "matchRepositories": [
                 "DND-IT/disco**",
