@@ -1,0 +1,18 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "packageRules": [
+        {
+            "description": "Exclude npm from Disco repositories",
+            "matchManagers": [
+                "npm"
+            ],
+            "matchRepositories": [
+                "DND-IT/disco**",
+                "DND-IT/fuw**",
+                "DND-IT/legacy**",
+                "DND-IT/mini**"
+            ],
+            "enabled": false
+        }
+    ]
+}
