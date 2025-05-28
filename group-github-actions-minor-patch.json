@@ -13,19 +13,6 @@
       ],
       "groupName": "github-actions minor / patch updates",
       "groupSlug": "github-actions-all-minor-patch"
-    },
-    {
-      "matchRepo": "tx-pts-dai/legacy-repo",
-      "matchRepositories": [
-        "DND-IT/disco**",
-        "DND-IT/fuw**",
-        "DND-IT/legacy**",
-        "DND-IT/mini**"
-      ],
-      "matchFileNames": [
-        ".github/workflows/web-vitals.yml"
-      ],
-      "enabled": false
     }
   ],
   "enabledManagers": [
