@@ -32,20 +32,8 @@
         '\\.tfvars$'
       ],
       matchStrings: [
-        '"(?<currentValue>[^"]+)"\\s*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?'
+        '"(?<currentValue>[^"]+)".*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?(?:\\s+rdsFilter=(?<rdsFilter>\'.*?\'))?'
       ]
-    },
-    {
-      customType: 'regex',
-      description: 'Update AWS RDS',
-      fileMatch: [
-        '\\.tfvars$',
-        '\\.tf$'
-      ],
-      matchStrings: [
-        ".*rdsFilter=(?<packageName>.+?)[ ]*\n[ ]*(?<depName>[a-zA-Z0-9-_:]*)[ ]*?:[ ]*?[\"|']?(?<currentValue>[.\\d]+)[\"|']?.*"
-      ],
-      datasourceTemplate: 'aws-rds'
     }
   ],
   packageRules: [
