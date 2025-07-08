@@ -32,27 +32,8 @@
         '\\.tfvars$'
       ],
       matchStrings: [
-        '"(?<currentValue>[^"]+)"\\s*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?'
+        '"(?<currentValue>[^"]+)"\\s*#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)(?:\\s+depName=(?<depName>[^\\s]+))?(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?(?:\\s+rdsFilter=(?<rdsFilter>\'.*?\'))?'
       ]
-    },
-    {
-      customType: 'regex',
-      description: 'Update AWS RDS',
-      fileMatch: [
-        '\\.tfvars$',
-        '\\.tf$'
-      ],
-      matchStrings: [
-        // Above-line renovate comment
-        //  # renovate: rdsFilter='[{"Name":"engine","Values":["postgres"]},{"Name":"engine-version","Values":["16.0"]}]'
-        //  var_name: "16.8"
-        '#\\s*renovate:\\s*rdsFilter=(?<packageName>\'.*?\')\\s*\\n\\s*(?<depName>[a-zA-Z0-9_]+)\\s*:\\s*[\'"]?(?<currentValue>[0-9.]+)[\'"]?',
-
-        // Inline renovate comment
-        //  var_name: "16.8"  # renovate: rdsFilter='[{"Name":"engine","Values":["postgres"]},{"Name":"engine-version","Values":["16.0"]}]'
-        '(?<depName>[a-zA-Z0-9_]+)\\s*:\\s*[\'"]?(?<currentValue>[0-9.]+)[\'"]?\\s*#\\s*renovate:\\s*rdsFilter=(?<packageName>\'.*?\')'
-      ],
-      datasourceTemplate: 'aws-rds'
     }
   ],
   packageRules: [
