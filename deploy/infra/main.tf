@@ -54,13 +54,3 @@ resource "aws_iam_user_policy" "rds_engine_lookup_policy" {
 resource "aws_iam_access_key" "rds_engine_lookup" {
   user = aws_iam_user.rds_engine_lookup.name
 }
-
-output "rds_engine_lookup_access_key_id" {
-  value     = aws_iam_access_key.rds_engine_lookup.id
-  sensitive = true
-}
-
-output "rds_engine_lookup_secret_access_key" {
-  value     = aws_iam_access_key.rds_engine_lookup.secret
-  sensitive = true
-}
