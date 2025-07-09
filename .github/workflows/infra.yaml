@@ -1,0 +1,40 @@
+name: Deploy Infra
+
+on:
+  push:
+    branches: [main]
+    paths:
+    - deploy/infra/**
+  pull_request:
+    branches: [main]
+    paths:
+    - deploy/infra/**
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  plan:
+    if: github.event_name == 'pull_request'
+    strategy:
+      fail-fast: false
+      matrix:
+        environment:
+          - sandbox
+    uses: DND-IT/github-workflows/.github/workflows/tf-plan.yaml@v3
+    with:
+      environment: ${{ matrix.environment }}
+
+  apply:
+    if: github.ref_name == github.event.repository.default_branch && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        environment:
+          - sandbox
+    uses: DND-IT/github-workflows/.github/workflows/tf-apply.yaml@v3
+    with:
+      environment: ${{ matrix.environment }}
