@@ -1,3 +1,0 @@
-bucket = "tf-state-911453050078"
-key    = "renovate-config/infra/terraform.tfstate"
-region = "eu-central-1"
