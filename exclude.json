@@ -1,0 +1,34 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "packageRules": [
+        {
+            "description": "Exclude repositories from dockerfile maanager",
+            "matchManagers": [
+                "dockerfile"
+            ],
+            "matchRepositories": [
+                "DND-IT/disco**",
+                "DND-IT/fuw**",
+                "DND-IT/legacy**",
+                "DND-IT/mini**"
+            ],
+            "enabled": false
+        },
+        {
+            "description": "Exclude actions/setup-node package from repositories",
+            "matchManagers": [
+                "github-actions"
+            ],
+            "matchPackageNames": [
+                "actions/setup-node"
+            ],
+            "matchRepositories": [
+                "DND-IT/disco**",
+                "DND-IT/fuw**",
+                "DND-IT/legacy**",
+                "DND-IT/mini**"
+            ],
+            "enabled": false
+        }
+    ]
+}
