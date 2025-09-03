@@ -33,5 +33,32 @@
     "helmv3",
     "pip-requirements",
     "kustomize"
+  ],
+  "labels": ["renovate"],
+  "packageRules": [
+    {
+      "matchManagers": ["dockerfile"],
+      "addLabels": ["docker"]
+    },
+    {
+      "matchManagers": ["terraform"],
+      "addLabels": ["terraform"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "addLabels": ["github-actions"]
+    },
+    {
+      "matchManagers": ["helm-values", "helmv3"],
+      "addLabels": ["helm"]
+    },
+    {
+      "matchManagers": ["pip_requirements"],
+      "addLabels": ["python"]
+    },
+    {
+      "matchManagers": ["kustomize"],
+      "addLabels": ["kustomize"]
+    }
   ]
 }
