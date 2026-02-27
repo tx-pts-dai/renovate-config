@@ -32,7 +32,8 @@
     "helm-values",
     "helmv3",
     "pip-requirements",
-    "kustomize"
+    "kustomize",
+    "argocd"
   ],
   "labels": ["renovate"],
   "packageRules": [
@@ -59,6 +60,10 @@
     {
       "matchManagers": ["kustomize"],
       "addLabels": ["kustomize"]
+    },
+    {
+      "matchManagers": ["argocd"],
+      "addLabels": ["argocd"]
     }
   ]
 }
