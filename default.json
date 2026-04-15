@@ -33,7 +33,8 @@
     "helmv3",
     "pip-requirements",
     "kustomize",
-    "argocd"
+    "argocd",
+    "pre-commit"
   ],
   "labels": ["renovate"],
   "packageRules": [
