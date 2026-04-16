@@ -3,7 +3,6 @@
   "extends": [
     "config:recommended",
     ":dependencyDashboard",
-    ":enablePreCommit",
     "github>tx-pts-dai/renovate-config:group-github-actions-minor-patch",
     "github>tx-pts-dai/renovate-config:group-terraform-minor-patch",
     "github>tx-pts-dai/renovate-config:group-pre-commit-minor-patch",
@@ -55,7 +54,7 @@
       "addLabels": ["helm"]
     },
     {
-      "matchManagers": ["pip_requirements"],
+      "matchManagers": ["pip-requirements"],
       "addLabels": ["python"]
     },
     {
