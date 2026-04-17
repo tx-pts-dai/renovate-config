@@ -14,5 +14,8 @@
       "groupName": "pre-commit minor / patch updates",
       "groupSlug": "pre-commit-all-minor-patch"
     }
-  ]
+  ],
+  "pre-commit": {
+    "enabled": true
+  }
 }
