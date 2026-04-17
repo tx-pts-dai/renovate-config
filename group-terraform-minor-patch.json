@@ -12,8 +12,5 @@
       "groupName": "terraform minor / patch updates",
       "groupSlug": "terraform-all-minor-patch"
     }
-  ],
-  "enabledManagers": [
-    "terraform"
   ]
 }
