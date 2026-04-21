@@ -29,8 +29,5 @@
       "groupSlug": "kaas-major",
       "separateMultipleMajor": true
     }
-  ],
-  "enabledManagers": [
-    "terraform"
   ]
 }

@@ -15,7 +15,7 @@
       "groupSlug": "pre-commit-all-minor-patch"
     }
   ],
-  "enabledManagers": [
-    "pre-commit"
-  ]
+  "pre-commit": {
+    "enabled": true
+  }
 }

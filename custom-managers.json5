@@ -43,6 +43,5 @@
       groupName: 'Terraform helm packages',
       groupSlug: 'terraform-helm',
     }
-  ],
-  enabledManagers: ['custom.regex'],
+  ]
 }
