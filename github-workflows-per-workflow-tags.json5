@@ -1,0 +1,53 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  // DND-IT/github-workflows now cuts a release tag per reusable workflow
+  // (e.g. tf-plan-v0.1.0, tf-apply-v0.1.0) in addition to its umbrella tag
+  // (e.g. v4.1.2). The built-in github-actions manager can't tell one
+  // workflow file apart from another within the same repo (depName is
+  // always just "owner/repo"), so a custom manager captures the workflow
+  // name into a synthetic depName to track each one independently.
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Track DND-IT/github-workflows reusable workflow calls per-workflow instead of via the shared umbrella tag.',
+      fileMatch: [
+        '^\\.github/workflows/.*\\.ya?ml$',
+      ],
+      matchStrings: [
+        'uses:\\s*DND-IT/github-workflows/\\.github/workflows/(?<workflow>[\\w-]+)\\.ya?ml@(?<currentDigest>[0-9a-f]{40})\\s*#\\s*(?<currentValue>\\S+)',
+      ],
+      depNameTemplate: 'DND-IT/github-workflows/{{{workflow}}}',
+      packageNameTemplate: 'DND-IT/github-workflows',
+      datasourceTemplate: 'github-tags',
+    },
+  ],
+  packageRules: [
+    {
+      description: 'The custom manager above owns DND-IT/github-workflows reusable-workflow pins; stop the built-in github-actions manager from also proposing umbrella-tag updates for them.',
+      matchManagers: ['github-actions'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      enabled: false,
+    },
+    {
+      description: 'One-time migration from the shared umbrella tag to this call\'s own per-workflow release tag.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      matchCurrentValue: '!/^[\\w-]+-v\\d/',
+      replacementName: 'DND-IT/github-workflows',
+      replacementVersionTemplate: "{{lookup (split depName '/') 2}}-v0.1.0",
+      groupName: 'Github Workflow per-workflow tag migration',
+      groupSlug: 'github-workflow-tag-migration',
+    },
+    {
+      description: 'Once migrated, keep tracking updates within this call\'s own workflow release lineage instead of another workflow\'s tags.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      matchCurrentValue: '/^[\\w-]+-v\\d/',
+      versionCompatibility: '^(?<compatibility>.*)-v(?<version>.*)$',
+      versioning: 'semver',
+    },
+  ],
+}

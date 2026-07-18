@@ -9,6 +9,7 @@
     "github>tx-pts-dai/renovate-config:group-kaas",
     "github>tx-pts-dai/renovate-config:custom-managers.json5",
     "github>tx-pts-dai/renovate-config:actions-org-migration.json",
+    "github>tx-pts-dai/renovate-config:github-workflows-per-workflow-tags.json5",
     "github>tx-pts-dai/renovate-config:exclude.json"
   ],
   "branchPrefix": "renovate/",
