@@ -35,7 +35,14 @@
       matchDatasources: ['github-tags'],
       matchPackageNames: ['DND-IT/github-workflows'],
       matchCurrentValue: '!/^[\\w-]+-v\\d/',
-      replacementName: 'DND-IT/github-workflows',
+      // replacementNameTemplate is intentionally the same as depName: we aren't renaming
+      // anything, only forcing a version jump that plain versioning wouldn't allow. Setting
+      // replacementName to a *different* value (e.g. the bare packageName) makes Renovate's
+      // auto-replace logic search for that literal string in the file to rename it — since
+      // our depName is synthetic (never appears verbatim in file content), that search
+      // always fails and the update silently drops (upstream renovatebot/renovate quirk in
+      // doAutoReplace's firstIndexOf treating "not found" (-1) as the smallest index).
+      replacementNameTemplate: '{{{depName}}}',
       replacementVersionTemplate: "{{lookup (split depName '/') 2}}-v0.1.0",
       groupName: 'Github Workflow per-workflow tag migration',
       groupSlug: 'github-workflow-tag-migration',
