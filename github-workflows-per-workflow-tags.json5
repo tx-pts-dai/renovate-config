@@ -44,6 +44,10 @@
       // doAutoReplace's firstIndexOf treating "not found" (-1) as the smallest index).
       replacementNameTemplate: '{{{depName}}}',
       replacementVersionTemplate: "{{lookup (split depName '/') 2}}-v0.1.0",
+      // Since replacementNameTemplate equals depName, the default commit/PR title would read
+      // as "replace dependency X with X" — override the "with ..." part to say what's
+      // actually happening instead.
+      commitMessageExtra: 'with its per-workflow release tag ({{{newValue}}})',
       groupName: 'Github Workflow per-workflow tag migration',
       groupSlug: 'github-workflow-tag-migration',
     },
