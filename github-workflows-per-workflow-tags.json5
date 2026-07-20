@@ -41,13 +41,22 @@
       groupSlug: 'github-workflow-tag-migration',
     },
     {
+      description: 'Suppress the regular major/minor/patch bump that Renovate computes alongside the replacement above (both target the same currentValue) — only the migration replacement should be proposed until this call is on its per-workflow tag.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      matchCurrentValue: '!/^[\\w-]+-v\\d/',
+      matchUpdateTypes: ['major', 'minor', 'patch', 'digest', 'pin', 'pinDigest', 'bump', 'rollback'],
+      enabled: false,
+    },
+    {
       description: 'docker-build-push-ecr\'s per-workflow tagged releases require the caller workflow to grant additional permissions; flag this in the migration PR.',
       matchManagers: ['custom.regex'],
       matchDatasources: ['github-tags'],
       matchDepNames: ['DND-IT/github-workflows/docker-build-push-ecr'],
       matchCurrentValue: '!/^[\\w-]+-v\\d/',
       prBodyNotes: [
-        '⚠️ **Breaking change**: `docker-build-push-ecr` now requires the caller workflow to grant additional permissions. Add the following to the calling job (or workflow):\n\n```yaml\npermissions:\n  id-token: write\n  contents: read\n  packages: read # allow access to private NPM packages hosted on GitHub\n```',
+        '⚠️ **Breaking change**: add `packages: read` to this workflow\'s `permissions:` block (required by `docker-build-push-ecr` to access private NPM packages hosted on GitHub).',
       ],
     },
     {
