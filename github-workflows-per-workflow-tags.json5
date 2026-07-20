@@ -41,6 +41,16 @@
       groupSlug: 'github-workflow-tag-migration',
     },
     {
+      description: 'docker-build-push-ecr\'s per-workflow tagged releases require the caller workflow to grant additional permissions; flag this in the migration PR.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchDepNames: ['DND-IT/github-workflows/docker-build-push-ecr'],
+      matchCurrentValue: '!/^[\\w-]+-v\\d/',
+      prBodyNotes: [
+        '⚠️ **Breaking change**: `docker-build-push-ecr` now requires the caller workflow to grant additional permissions. Add the following to the calling job (or workflow):\n\n```yaml\npermissions:\n  id-token: write\n  contents: read\n  packages: read # allow access to private NPM packages hosted on GitHub\n```',
+      ],
+    },
+    {
       description: 'Once migrated, keep tracking updates within this call\'s own workflow release lineage instead of another workflow\'s tags.',
       matchManagers: ['custom.regex'],
       matchDatasources: ['github-tags'],
