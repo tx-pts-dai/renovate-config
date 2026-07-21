@@ -22,9 +22,6 @@
       "matchManagers": [
         "terraform"
       ],
-      "matchUpdateTypes": [
-        "major"
-      ],
       "groupName": "kaas major updates",
       "groupSlug": "kaas-major",
       "separateMultipleMajor": true
