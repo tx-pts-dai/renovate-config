@@ -34,3 +34,5 @@ https://docs.renovatebot.com/modules/manager/regex/#online-regex-testing-tool-ti
 ## Contribute
 
 Run *pre-commt run -a* before any commit
+
+We do not accept external contributions to this repository.
