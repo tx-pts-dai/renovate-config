@@ -1,0 +1,83 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  // DND-IT/github-workflows now cuts a release tag per reusable workflow
+  // (e.g. tf-plan-v0.1.0, tf-apply-v0.1.0) in addition to its umbrella tag
+  // (e.g. v4.1.2). The built-in github-actions manager can't tell one
+  // workflow file apart from another within the same repo (depName is
+  // always just "owner/repo"), so a custom manager captures the workflow
+  // name into a synthetic depName to track each one independently.
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Track DND-IT/github-workflows reusable workflow calls per-workflow instead of via the shared umbrella tag.',
+      fileMatch: [
+        '^\\.github/workflows/.*\\.ya?ml$',
+      ],
+      matchStrings: [
+        'uses:\\s*DND-IT/github-workflows/\\.github/workflows/(?<workflow>[\\w-]+)\\.ya?ml@(?<currentDigest>[0-9a-f]{40})\\s*#\\s*(?<currentValue>\\S+)',
+      ],
+      depNameTemplate: 'DND-IT/github-workflows/{{{workflow}}}',
+      packageNameTemplate: 'DND-IT/github-workflows',
+      datasourceTemplate: 'github-tags',
+    },
+  ],
+  packageRules: [
+    {
+      description: 'The custom manager above owns DND-IT/github-workflows reusable-workflow pins; stop the built-in github-actions manager from also proposing umbrella-tag updates for them.',
+      matchManagers: ['github-actions'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      enabled: false,
+    },
+    {
+      description: 'One-time migration from the shared umbrella tag to this call\'s own per-workflow release tag.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      matchCurrentValue: '!/^[\\w-]+-v\\d/',
+      // replacementNameTemplate is intentionally the same as depName: we aren't renaming
+      // anything, only forcing a version jump that plain versioning wouldn't allow. Setting
+      // replacementName to a *different* value (e.g. the bare packageName) makes Renovate's
+      // auto-replace logic search for that literal string in the file to rename it — since
+      // our depName is synthetic (never appears verbatim in file content), that search
+      // always fails and the update silently drops (upstream renovatebot/renovate quirk in
+      // doAutoReplace's firstIndexOf treating "not found" (-1) as the smallest index).
+      replacementNameTemplate: '{{{depName}}}',
+      replacementVersionTemplate: "{{lookup (split depName '/') 2}}-v0.1.0",
+      // Since replacementNameTemplate equals depName, the default commit/PR title would read
+      // as "replace dependency X with X" — override the "with ..." part to say what's
+      // actually happening instead.
+      commitMessageExtra: 'with its per-workflow release tag ({{{newValue}}})',
+      groupName: 'Github Workflow per-workflow tag migration',
+      groupSlug: 'github-workflow-tag-migration',
+    },
+    {
+      description: 'Suppress the regular major/minor/patch bump that Renovate computes alongside the replacement above (both target the same currentValue) — only the migration replacement should be proposed until this call is on its per-workflow tag.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      matchCurrentValue: '!/^[\\w-]+-v\\d/',
+      matchUpdateTypes: ['major', 'minor', 'patch', 'digest', 'pin', 'pinDigest', 'bump', 'rollback'],
+      enabled: false,
+    },
+    {
+      description: 'docker-build-push-ecr\'s per-workflow tagged releases require the caller workflow to grant additional permissions; flag this in the migration PR.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchDepNames: ['DND-IT/github-workflows/docker-build-push-ecr'],
+      matchCurrentValue: '!/^[\\w-]+-v\\d/',
+      prBodyNotes: [
+        '⚠️ **Breaking change**: add `packages: read` to this workflow\'s `permissions:` block (required by `docker-build-push-ecr` to access private NPM packages hosted on GitHub).',
+      ],
+    },
+    {
+      description: 'Once migrated, keep tracking updates within this call\'s own workflow release lineage instead of another workflow\'s tags.',
+      matchManagers: ['custom.regex'],
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['DND-IT/github-workflows'],
+      matchCurrentValue: '/^[\\w-]+-v\\d/',
+      versionCompatibility: '^(?<compatibility>.*)-v(?<version>.*)$',
+      versioning: 'semver',
+    },
+  ],
+}
