@@ -14,11 +14,17 @@
         '^\\.github/workflows/.*\\.ya?ml$',
       ],
       matchStrings: [
-        'uses:\\s*DND-IT/github-workflows/\\.github/workflows/(?<workflow>[\\w-]+)\\.ya?ml@(?<currentDigest>[0-9a-f]{40})\\s*#\\s*(?<currentValue>\\S+)',
+        // The org is matched case-insensitively (GitHub owner names are), so both
+        // `DND-IT/...` and `dnd-it/...` are picked up. The `ext` group preserves the
+        // caller's `.yml`/`.yaml` choice when the line is rewritten.
+        'uses:\\s*[Dd][Nn][Dd]-[Ii][Tt]/github-workflows/\\.github/workflows/(?<workflow>[\\w-]+)\\.(?<ext>ya?ml)@(?<currentDigest>[0-9a-f]{40})\\s*#\\s*(?<currentValue>\\S+)',
       ],
       depNameTemplate: 'DND-IT/github-workflows/{{{workflow}}}',
       packageNameTemplate: 'DND-IT/github-workflows',
       datasourceTemplate: 'github-tags',
+      // Rebuild the whole line on update rather than substituting values in place, so a
+      // lowercase `dnd-it/` gets normalized to the canonical `DND-IT/` at the same time.
+      autoReplaceStringTemplate: 'uses: DND-IT/github-workflows/.github/workflows/{{{workflow}}}.{{{ext}}}@{{{newDigest}}} # {{{newValue}}}',
     },
   ],
   packageRules: [
@@ -26,7 +32,9 @@
       description: 'The custom manager above owns DND-IT/github-workflows reusable-workflow pins; stop the built-in github-actions manager from also proposing umbrella-tag updates for them.',
       matchManagers: ['github-actions'],
       matchDatasources: ['github-tags'],
-      matchPackageNames: ['DND-IT/github-workflows'],
+      // Regex + `i` flag: the built-in manager reports the package name with the file's
+      // original casing, so match `dnd-it/github-workflows` too.
+      matchPackageNames: ['/^dnd-it\\/github-workflows$/i'],
       enabled: false,
     },
     {
