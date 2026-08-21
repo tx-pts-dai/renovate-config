@@ -12,7 +12,8 @@
         "pinDigest"
       ],
       "groupName": "pre-commit minor / patch updates",
-      "groupSlug": "pre-commit-all-minor-patch"
+      "groupSlug": "pre-commit-all-minor-patch",
+      "schedule": ["before 6am on monday"]
     }
   ],
   "pre-commit": {
