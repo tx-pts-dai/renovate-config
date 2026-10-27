@@ -9,8 +9,8 @@ per-workflow release tag instead of the repo's shared umbrella tag.
 
 - the `uses:` matcher accepts the org in any casing (`DND-IT`, `dnd-it`, mixed)
   and captures the workflow name, file extension, digest and tag;
-- only digest-pinned references (`@<sha> # <tag>`) are tracked — a plain
-  `@v3` tag ref is ignored;
+- both digest-pinned (`@<sha> # <tag>`) and plain tag (`@v3`) references
+  are tracked, and a plain tag ref stays unpinned when rewritten;
 - `autoReplaceStringTemplate` rewrites a lowercase `dnd-it/` reference to the
   canonical `DND-IT/` on update, preserving the caller's `.yml`/`.yaml` choice;
 - the rule that disables the built-in `github-actions` manager matches the

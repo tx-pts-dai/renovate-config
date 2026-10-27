@@ -16,15 +16,17 @@
       matchStrings: [
         // The org is matched case-insensitively (GitHub owner names are), so both
         // `DND-IT/...` and `dnd-it/...` are picked up. The `ext` group preserves the
-        // caller's `.yml`/`.yaml` choice when the line is rewritten.
-        'uses:\\s*[Dd][Nn][Dd]-[Ii][Tt]/github-workflows/\\.github/workflows/(?<workflow>[\\w-]+)\\.(?<ext>ya?ml)@(?<currentDigest>[0-9a-f]{40})\\s*#\\s*(?<currentValue>\\S+)',
+        // caller's `.yml`/`.yaml` choice when the line is rewritten. Both digest-pinned
+        // (`@<sha> # <tag>`) and plain tag (`@<tag>`) refs are matched.
+        'uses:\\s*[Dd][Nn][Dd]-[Ii][Tt]/github-workflows/\\.github/workflows/(?<workflow>[\\w-]+)\\.(?<ext>ya?ml)@(?:(?<currentDigest>[0-9a-f]{40})\\s*#\\s*)?(?<currentValue>[\\w.-]+)',
       ],
       depNameTemplate: 'DND-IT/github-workflows/{{{workflow}}}',
       packageNameTemplate: 'DND-IT/github-workflows',
       datasourceTemplate: 'github-tags',
       // Rebuild the whole line on update rather than substituting values in place, so a
       // lowercase `dnd-it/` gets normalized to the canonical `DND-IT/` at the same time.
-      autoReplaceStringTemplate: 'uses: DND-IT/github-workflows/.github/workflows/{{{workflow}}}.{{{ext}}}@{{{newDigest}}} # {{{newValue}}}',
+      // Digest-pinned refs stay digest-pinned; plain tag refs stay plain tag refs.
+      autoReplaceStringTemplate: 'uses: DND-IT/github-workflows/.github/workflows/{{{workflow}}}.{{{ext}}}@{{#if newDigest}}{{{newDigest}}} # {{{newValue}}}{{else}}{{{newValue}}}{{/if}}',
     },
   ],
   packageRules: [
