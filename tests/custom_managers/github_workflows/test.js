@@ -33,11 +33,15 @@ const autoReplaceTpl = quotedOn((l) =>
 );
 const packageNameRule = quotedOn((l) => l.startsWith("matchPackageNames: ['/"));
 
-// Minimal stand-in for Renovate's triple-brace template rendering. The template
-// only uses `{{{var}}}` substitutions, so this is faithful for our purposes.
+// Minimal stand-in for Renovate's Handlebars rendering: `{{#if var}}a{{else}}b{{/if}}`
+// blocks and `{{{var}}}` substitutions, which is all the template uses.
 function render(template, vars) {
-  return template.replace(/\{\{\{(\w+)\}\}\}/g, (_, key) => {
-    assert.ok(key in vars, `template referenced unknown var {{{${key}}}}`);
+  const resolved = template.replace(
+    /\{\{#if (\w+)\}\}(.*?)\{\{else\}\}(.*?)\{\{\/if\}\}/g,
+    (_, key, then, otherwise) => (vars[key] ? then : otherwise),
+  );
+  return resolved.replace(/\{\{\{(\w+)\}\}\}/g, (_, key) => {
+    assert.ok(key in vars && vars[key] !== undefined, `template referenced unknown var {{{${key}}}}`);
     return vars[key];
   });
 }
@@ -97,10 +101,20 @@ check('ignores a non-DND-IT action', () => {
   assert.equal(matchPattern.exec(line), null);
 });
 
-check('ignores an unpinned tag ref (no digest, no comment)', () => {
-  // The original example: this manager only tracks digest-pinned lines.
+check('matches a plain tag ref (no digest, no comment)', () => {
   const line = '      uses: dnd-it/github-workflows/.github/workflows/gitops-image-tag.yaml@v3';
-  assert.equal(matchPattern.exec(line), null);
+  const m = matchPattern.exec(line);
+  assert.ok(m, 'expected a plain tag ref to match');
+  assert.equal(m.groups.workflow, 'gitops-image-tag');
+  assert.equal(m.groups.currentDigest, undefined);
+  assert.equal(m.groups.currentValue, 'v3');
+});
+
+check('matches a plain per-workflow tag ref', () => {
+  const line = '      uses: DND-IT/github-workflows/.github/workflows/tf-plan.yaml@tf-plan-v0.1.0';
+  const m = matchPattern.exec(line);
+  assert.ok(m, 'expected a match');
+  assert.equal(m.groups.currentValue, 'tf-plan-v0.1.0');
 });
 
 console.log('autoReplaceStringTemplate (casing normalization):');
@@ -131,6 +145,21 @@ check('preserves .yml extension when rewriting', () => {
     newValue: 'tf-apply-v0.1.0',
   });
   assert.ok(rewritten.includes('/tf-apply.yml@'), 'expected .yml to survive');
+});
+
+check('keeps a plain tag ref unpinned when rewriting', () => {
+  const line = '      uses: dnd-it/github-workflows/.github/workflows/tf-plan.yaml@v3';
+  const m = matchPattern.exec(line);
+  const rewritten = render(autoReplaceTpl, {
+    workflow: m.groups.workflow,
+    ext: m.groups.ext,
+    newDigest: undefined,
+    newValue: 'tf-plan-v0.1.0',
+  });
+  assert.equal(
+    rewritten,
+    'uses: DND-IT/github-workflows/.github/workflows/tf-plan.yaml@tf-plan-v0.1.0',
+  );
 });
 
 console.log('github-actions disable rule (matchPackageNames):');
