@@ -96,5 +96,15 @@
       // `tf-plan-v0` would never get a major bump or digest update.
       versioning: 'docker',
     },
+    {
+      description: 'tf-apply reads the plan comment tf-plan writes, so both must run the same version; update them in one PR.',
+      matchManagers: ['custom.regex'],
+      matchDepNames: [
+        'DND-IT/github-workflows/tf-plan',
+        'DND-IT/github-workflows/tf-apply',
+      ],
+      groupName: 'DND-IT/github-workflows terraform plan and apply',
+      groupSlug: 'github-workflows-tf-plan-apply',
+    },
   ],
 }
