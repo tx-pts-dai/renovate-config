@@ -62,8 +62,8 @@
       // as "replace dependency X with X" — override the "with ..." part to say what's
       // actually happening instead.
       commitMessageExtra: 'with its per-workflow release tag ({{{newValue}}})',
-      groupName: 'Github Workflow per-workflow tag migration',
-      groupSlug: 'github-workflow-tag-migration',
+      // No groupName here: Renovate never groups replacement updates ("Ignoring grouped
+      // branch name for replacement update"), so each workflow gets its own PR regardless.
     },
     {
       description: 'Suppress the regular major/minor/patch bump that Renovate computes alongside the replacement above (both target the same currentValue) — only the migration replacement should be proposed until this call is on its per-workflow tag.',
