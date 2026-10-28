@@ -174,6 +174,20 @@ check('disable rule matches both casings but not sub-workflows', () => {
   );
 });
 
+console.log('migration and lineage rules:');
+
+check('migration targets the floating major tag, not a fixed release', () => {
+  const line = config
+    .split('\n')
+    .find((l) => l.trim().startsWith('replacementVersionTemplate:'));
+  assert.ok(line, 'no replacementVersionTemplate line');
+  assert.match(line, /-v0",\s*$/);
+});
+
+check('lineage rule uses versioning that accepts partial tags like v0', () => {
+  assert.equal(quotedOn((l) => l.startsWith('versioning:')), 'docker');
+});
+
 if (failures > 0) {
   console.error(`\n${failures} test(s) failed`);
   process.exit(1);

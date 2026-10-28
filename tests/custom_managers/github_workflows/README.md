@@ -15,7 +15,9 @@ per-workflow release tag instead of the repo's shared umbrella tag.
   canonical `DND-IT/` on update, preserving the caller's `.yml`/`.yaml` choice;
 - the rule that disables the built-in `github-actions` manager matches the
   package name in either casing without catching the synthetic sub-workflow
-  names owned by the custom manager.
+  names owned by the custom manager;
+- the one-time migration targets the floating `<workflow>-v0` tag, and the
+  lineage rule uses `docker` versioning so partial tags stay valid.
 
 Run:
 
