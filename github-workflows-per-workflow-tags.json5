@@ -53,13 +53,17 @@
       // always fails and the update silently drops (upstream renovatebot/renovate quirk in
       // doAutoReplace's firstIndexOf treating "not found" (-1) as the smallest index).
       replacementNameTemplate: '{{{depName}}}',
-      replacementVersionTemplate: "{{lookup (split depName '/') 2}}-v0.1.0",
+      // Target the floating major tag, not a fixed release. A fixed tag freezes at whatever
+      // was current when this rule was written: `<workflow>-v0.1.0` predates most of the
+      // umbrella tag's history, so migrating to it downgrades the caller. `<workflow>-v0`
+      // always points at the latest 0.x release, matching how callers floated on `v4`.
+      replacementVersionTemplate: "{{lookup (split depName '/') 2}}-v0",
       // Since replacementNameTemplate equals depName, the default commit/PR title would read
       // as "replace dependency X with X" — override the "with ..." part to say what's
       // actually happening instead.
       commitMessageExtra: 'with its per-workflow release tag ({{{newValue}}})',
-      groupName: 'Github Workflow per-workflow tag migration',
-      groupSlug: 'github-workflow-tag-migration',
+      // No groupName here: Renovate never groups replacement updates ("Ignoring grouped
+      // branch name for replacement update"), so each workflow gets its own PR regardless.
     },
     {
       description: 'Suppress the regular major/minor/patch bump that Renovate computes alongside the replacement above (both target the same currentValue) — only the migration replacement should be proposed until this call is on its per-workflow tag.',
@@ -87,7 +91,20 @@
       matchPackageNames: ['DND-IT/github-workflows'],
       matchCurrentValue: '/^[\\w-]+-v\\d/',
       versionCompatibility: '^(?<compatibility>.*)-v(?<version>.*)$',
-      versioning: 'semver',
+      // `docker` versioning accepts partial versions (`0`, `0.4`) and keeps the caller's
+      // precision on update. `semver` rejects them as invalid-value, so floating refs like
+      // `tf-plan-v0` would never get a major bump or digest update.
+      versioning: 'docker',
+    },
+    {
+      description: 'tf-apply reads the plan comment tf-plan writes, so both must run the same version; update them in one PR.',
+      matchManagers: ['custom.regex'],
+      matchDepNames: [
+        'DND-IT/github-workflows/tf-plan',
+        'DND-IT/github-workflows/tf-apply',
+      ],
+      groupName: 'DND-IT/github-workflows terraform plan and apply',
+      groupSlug: 'github-workflows-tf-plan-apply',
     },
   ],
 }
